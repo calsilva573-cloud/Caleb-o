@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALEBÃO.exe</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #170e09;
+    color: #f4e7d5;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+html { scroll-behavior: smooth; }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    border-bottom: 1px solid #ffffff18;
+}
+
+.logo {
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-size: 20px;
+}
+
+.menu {
+    color: #c8aa8c;
+    font-size: 12px;
+}
+
+.hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+    background:
+    radial-gradient(ellipse at center, #593b27 0%, #26170f 50%, #170e09 100%);
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: entrada 1.2s ease;
+}
+
+.tag {
+    display: inline-block;
+    border: 1px solid #b99570;
+    color: #d8b99a;
+    border-radius: 30px;
+    padding: 9px 20px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(75px, 16vw, 180px);
+    line-height: .95;
+    letter-spacing: 5px;
+    background: linear-gradient(180deg, #fff5e9, #c29b75, #795239);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: brilho 3s infinite alternate;
+}
+
+.subtitle {
+    color: #d0b69d;
+    margin-top: 25px;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 35px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 8px;
+    background: #e4c7a7;
+    color: #28170e;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn:hover {
+    transform: scale(1.08);
+    background: white;
+    box-shadow: 0 0 30px #e4c7a755;
+}
+
+section {
+    padding: 85px 8%;
+    text-align: center;
+}
+
+.section-title {
+    font-family: 'Anton';
+    font-size: 48px;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.description {
+    color: #aa927c;
+    font-size: 13px;
+    margin-bottom: 35px;
+}
+
+.panel {
+    max-width: 700px;
+    margin: auto;
+    padding: 45px 25px;
+    background: linear-gradient(145deg,#382417,#24160e);
+    border: 1px solid #745139;
+    border-radius: 18px;
+    box-shadow: 0 15px 60px #0005;
+}
+
+#message {
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.buttons button {
+    padding: 13px 22px;
+    border: 1px solid #987455;
+    color: #f4e7d5;
+    background: #503521;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.buttons button:hover {
+    background: #c39b75;
+    color: #1c100a;
+    transform: translateY(-4px);
+}
+
+.counter {
+    font-family: 'Anton';
+    font-size: 70px;
+    color: #d4b08d;
+    margin: 15px;
+}
+
+.meme {
+    background: #24160e;
+}
+
+footer {
+    text-align: center;
+    padding: 35px;
+    border-top: 1px solid #ffffff18;
+    color: #9b8069;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.floating {
+    position: absolute;
+    color: #c8a27d;
+    opacity: .2;
+    font-size: 35px;
+    animation: flutuar 5s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.f1 { top: 15%; left: 12%; }
+.f2 { top: 65%; left: 80%; animation-delay: 1s; }
+.f3 { top: 25%; right: 12%; animation-delay: 2s; }
+.f4 { bottom: 10%; left: 25%; animation-delay: 3s; }
+
+#toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    background: #e4c7a7;
+    color: #24160e;
+    padding: 16px 25px;
+    border-radius: 10px;
+    font-weight: 800;
+    z-index: 99;
+    transition: .4s;
+    text-align: center;
+    width: max-content;
+    max-width: 90%;
+}
+
+#toast.show {
+    transform: translate(-50%, 0);
+}
+
+@keyframes entrada {
+    from {opacity:0; transform:translateY(40px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes brilho {
+    from {filter:drop-shadow(0 0 5px #c39b75);}
+    to {filter:drop-shadow(0 0 25px #d7b18c);}
+}
+
+@keyframes flutuar {
+    0%,100% {transform:translateY(0) rotate(0);}
+    50% {transform:translateY(-25px) rotate(15deg);}
+}
+
+@media(max-width:600px) {
+    header {padding:20px;}
+    .menu {font-size:9px;}
+    section {padding:65px 6%;}
+    .section-title {font-size:38px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">C.®</div>
+    <div class="menu">UM SITE COMPLETAMENTE INÚTIL.</div>
+</header>
+
+<main>
+
+<div class="hero">
+
+    <span class="floating f1">✦</span>
+    <span class="floating f2">✧</span>
+    <span class="floating f3">✦</span>
+    <span class="floating f4">✧</span>
+
+    <div class="hero-content">
+        <div class="tag">VOCÊ NÃO ESTAVA PREPARADO</div>
+
+        <h1>CALEBÃO</h1>
+
+        <p class="subtitle">
+            NÃO PERGUNTE. APENAS CONTEMPLE.
+        </p>
+
+        <button class="btn" onclick="entrar()">
+            ENTRAR NO CAOS →
+        </button>
+    </div>
+</div>
+
+<section>
+    <h2 class="section-title">CENTRAL DA RESENHA</h2>
+    <p class="description">
+        Escolha seu destino. Nenhum deles vai mudar sua vida.
+    </p>
+
+    <div class="panel">
+        <div id="message">
+            O sistema está esperando você...
+        </div>
+
+        <div class="buttons">
+            <button onclick="mensagem()">Botão aleatório</button>
+            <button onclick="carregar()">Hackear o sistema</button>
+            <button onclick="risada()">Modo resenha</button>
+            <button onclick="segredo()">Não clicar</button>
+        </div>
+    </div>
+</section>
+
+<section class="meme">
+    <h2 class="section-title">CONTADOR OFICIAL</h2>
+    <p class="description">
+        Quantas vezes você já clicou sem necessidade?
+    </p>
+
+    <div class="counter" id="contador">000</div>
+
+    <button class="btn" onclick="contar()">
+        CLICAR SEM MOTIVO +
+    </button>
+</section>
+
+<section>
+    <h2 class="section-title">ÁREA PROIBIDA</h2>
+    <p class="description">
+        Você realmente vai clicar nisso?
+    </p>
+
+    <button class="btn" onclick="explodir()">
+        BOTÃO VERMELHO (MENTIRA) 💥
+    </button>
+</section>
+
+</main>
+
+<footer>
+    CALEBÃO © 2026 — NÃO TEM NADA PRA VER AQUI.
+</footer>
+
+<div id="toast"></div>
+
+<script>
+
+const frases = [
+    "Você realmente clicou nisso? KKKKK",
+    "Calebão está observando você.",
+    "Parabéns, você perdeu 5 segundos.",
+    "Erro 404: juízo não encontrado.",
+    "Esse botão não deveria existir.",
+    "O desenvolvedor estava sem nada pra fazer.",
+    "Sistema funcionando... infelizmente.",
+    "Você desbloqueou absolutamente nada.",
+    "O nível de resenha ultrapassou o limite.",
+    "Calebão.exe está em execução."
+];
+
+let cliques = 0;
+
+function aviso(texto) {
+    const toast = document.getElementById("toast");
+    toast.innerText = texto;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2800);
+}
+
+function entrar() {
+    document.getElementById("message").innerText =
+    "SEJA BEM-VINDO AO UNIVERSO DO CALEBÃO. 🤎";
+
+    document.getElementById("message").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+}
+
+function mensagem() {
+    const frase = frases[Math.floor(Math.random()*frases.length)];
+    document.getElementById("message").innerText = frase;
+}
+
+function carregar() {
+    document.getElementById("message").innerText = "Invadindo os sistemas...";
+
+    setTimeout(() => {
+        document.getElementById("message").innerText =
+        "ACESSO CONCEDIDO. VOCÊ É MUITO DESOCUPADO. 😂";
+    }, 2000);
+}
+
+function risada() {
+    aviso("KKKKKKKKKKKKKKKKKKKKKK");
+}
+
+function segredo() {
+    aviso("EU AVISEI PRA NÃO CLICAR. 🤨");
+}
+
+function contar() {
+    cliques++;
+    document.getElementById("contador").innerText =
+    String(cliques).padStart(3,"0");
+
+    if(cliques === 10) aviso("10 CLIQUES. VAI ARRUMAR O QUE FAZER KKKK");
+    if(cliques === 20) aviso("VOCÊ PRECISA DE AJUDA. 😂");
+}
+
+function explodir() {
+    document.body.style.transition = "0.2s";
+    document.body.style.background = "#765039";
+
+    setTimeout(() => {
+        document.body.style.background = "#170e09";
+    }, 300);
+
+    aviso("💥 CALMA! ERA SÓ UMA BRINCADEIRA.");
+}
+
+// Partículas flutuantes
+document.addEventListener("click", function(e) {
+    const estrela = document.createElement("span");
+    estrela.innerText = "✦";
+
+    estrela.style.position = "fixed";
+    estrela.style.left = e.clientX + "px";
+    estrela.style.top = e.clientY + "px";
+    estrela.style.color = "#d9b18b";
+    estrela.style.pointerEvents = "none";
+    estrela.style.zIndex = "100";
+    estrela.style.animation = "flutuar 1s forwards";
+
+    document.body.appendChild(estrela);
+
+    setTimeout(() => estrela.remove(), 1000);
+});
+
+</script>
+
+</body>
+</html>k
